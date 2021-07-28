@@ -1,0 +1,37 @@
+{
+    "Title": "普通禮品",
+    "Resource": [{
+        "Title": "方塊類",
+        "Group": [{
+            "Id": "Log",
+            "Title": "木頭",
+            "Quantity": 20
+        }, {
+            "Id": "Stone",
+            "Title": "石頭",
+            "Quantity": 30
+        }]
+    }, {
+        "Title": "礦石類",
+        "Group": [{
+            "Id": "Diamond",
+            "Title": "鑽石",
+            "Quantity": 3
+        }, {
+            "Id": "Iron",
+            "Title": "鐵錠",
+            "Quantity": 5
+        }]
+    }, {
+        "Title": "食物類",
+        "Group": [{
+            "Id": "Beef",
+            "Title": "熟牛肉",
+            "Quantity": 10
+        }, {
+            "Id": "Chicken",
+            "Title": "熟雞肉",
+            "Quantity": 7
+        }]
+    }]
+}

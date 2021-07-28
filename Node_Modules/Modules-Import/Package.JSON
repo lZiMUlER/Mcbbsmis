@@ -1,0 +1,40 @@
+{
+	"name": "modules-import",
+	"description": "模塊載入器",
+	"author": {
+		"name": "lZiMUl",
+		"email": "AA2908554069@gmail.com",
+		"url": "https://b23.tv/ymEtPO"
+	},
+	"contributors": [
+		{
+			"name": "lZiMUl",
+			"email": "AA2908554069@gmail.com",
+			"url": "https://b23.tv/ymEtPO"
+		}
+	],
+		"version": "1.1.0",
+		"license": "MIT",
+		"homepage": "https://b23.tv/ymEtPO",
+		"main": "./Srcs/MainActivity.JS",
+		"keywords": [
+			"lZiMUl",
+			"NodeJS",
+			"Import",
+			"Module"
+			],
+			"engines": {
+				"node": "^14.14.0"
+			},
+			"repository": {
+				"type": "git",
+				"url": "https://github.com/lZiMUl/ModulesImport.git"
+			},
+			"bugs": {
+				"url": "https://github.com/lZiMUl/ModulesImport/issues",
+				"email": "AA2908554069@gmail.com"
+			},
+			"private": false,
+			"preferGlobal": true,
+			"deprecated": false
+}

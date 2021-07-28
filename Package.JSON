@@ -1,0 +1,68 @@
+{
+    "name": "mcbbsmis",
+    "description": "Minecraft Connect Bind BiliBili Sync Mutual Message Interaction Service",
+    "author": {
+        "name": "lZiMUl",
+        "email": "AA2908554069@gmail.com",
+        "url": "https://b23.tv/ymEtPO"
+    },
+    "contributors": [
+        {
+            "name": "lZiMUl",
+            "email": "AA2908554069@gmail.com",
+            "url": "https://b23.tv/ymEtPO"
+        }
+    ],
+    "version": "28.25.93",
+    "Vn": 25,
+    "license": "MIT",
+    "homepage": "https://b23.tv/ymEtPO",
+    "main": "./Srcs/MainActivity.JS",
+    "scripts": {
+        "LinuxUpdate": "echo \"正在更新中... 請稍等\" && cd ../ && mv ./Mcbbsmis/Configs/ ./ && mv ./Mcbbsmis/Plugins/ ./ && rm -rf ./Mcbbsmis/ && git clone https://github.com/lZiMUl/Mcbbsmis.git && rm -rf ./Mcbbsmis/Configs && mv ./Configs/ ./Mcbbsmis/ && mv ./Plugins/ ./Mcbbsmis/ && echo \"更新完成\"",
+        "WindowUpdate": "echo \"正在更新中... 請稍等\" && cd ..\\ && move .\\Mcbbsmis\\Configs\\ .\\ && move .\\Mcbbsmis\\Plugins\\ .\\ && rd /s /q .\\Mcbbsmis\\ && git clone https://github.com/lZiMUl/Mcbbsmis.git && rd /s /q .\\Mcbbsmis\\Configs\\ && move .\\Configs\\ .\\Mcbbsmis\\ && mv .\\Plugins\\ .\\Mcbbsmis\\ && echo \"更新完成\""
+    },
+    "keywords": [
+        "lZiMUl",
+        "Chat",
+        "Minecraft",
+        "BiliBili",
+        "WebSocket",
+        "Service",
+        "Server",
+        "Interaction"
+    ],
+    "engines": {
+        "node": "^14.14.0"
+    },
+    "dependencies": {
+        "bilibili-live-ws": "^5.1.1",
+        "ini": "^2.0.0",
+        "lzimul-import": "^1.0.0",
+        "ws": "^7.5.3"
+    },
+    "devDependencies": {
+        "bilibili-live-ws": "^5.1.1",
+        "ini": "^2.0.0",
+        "lzimul-import": "^1.0.0",
+        "ws": "^7.5.3"
+    },
+    "bundledDependencies": {
+    	"bilibili-live-ws": "^5.1.1",
+        "ws": "^7.5.3",
+        "ini": "^2.0.0",
+        "lzimul-import": "^1.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lZiMUl/Mcbbsmis.git"
+    },
+    "bugs": {
+        "url": "https://github.com/lZiMUl/Mcbbsmis/issues",
+        "email": "AA2908554069@gmail.com"
+    },
+    "private": false,
+    "preferGlobal": true,
+    "deprecated": false
+}
+

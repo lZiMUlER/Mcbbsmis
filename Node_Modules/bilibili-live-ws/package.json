@@ -1,0 +1,51 @@
+{
+  "name": "bilibili-live-ws",
+  "version": "5.1.1",
+  "description": "Bilibili Live WebSocket/TCP API",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run clear; npm run unit",
+    "unit": "nyc mocha --reporter=landing -r ts-node/register test/*.ts",
+    "clear": "rm index.js index.d.ts  extra.js extra.d.ts src/*.js src/*.d.ts;exit 0",
+    "tsc": "tsc -b",
+    "coverage": "mkdir coverage; nyc report --reporter=text-lcov >> ./coverage/lcov.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon300000/bilibili-live-ws.git"
+  },
+  "keywords": [
+    "bilibili",
+    "api",
+    "websocket",
+    "live",
+    "ws",
+    "tcp"
+  ],
+  "author": "simon3000 <simon3000@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simon300000/bilibili-live-ws/issues"
+  },
+  "homepage": "https://github.com/simon300000/bilibili-live-ws#readme",
+  "dependencies": {
+    "isomorphic-ws": "^4.0.1",
+    "ws": "^7.2.0"
+  },
+  "optionalDependencies": {
+    "got": "^11.1.4"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.8",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.0",
+    "@types/ws": "^7.2.1",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.6",
+    "got": "^11.1.4",
+    "mocha": "^7.0.1",
+    "nyc": "^15.0.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}

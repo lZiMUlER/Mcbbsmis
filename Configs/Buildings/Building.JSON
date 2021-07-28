@@ -1,0 +1,64 @@
+{
+    "Headers": {
+        "Name": "建築物名稱",
+        "Description": "建築物描述",
+        "Contributors": [
+            {
+            "Name": "成員名字",
+            "Mail": "成員郵箱",
+            "Position": "成員職位"
+            }
+        ],
+        "Team": {
+            "Name": "團隊名稱",
+            "Mail": "團隊郵箱",
+            "Homepage": "團隊主頁"
+        },
+        "Type": "建築物類型",
+        "Uuid": "建築物Uuid",
+        "Certification": {
+            "License": "许可证",
+            "PublicKey": "公钥"
+        },
+        "Version": [
+            0,
+            0,
+            1
+        ]
+    },
+    "Bodyers": {
+        "Commands": [
+            {
+            "Tips": "已将您设置为生存模式",
+            "Command": "Gamemode 0 @s"
+            }
+        ],
+        "Blocks": [
+            {
+                "Name": "一块蓝色的钻石块",
+                "Id": "Diamond_Block",
+                "Data": 0,
+                "Mode": "Keep",
+                "Nbt": {},
+                "Location": {
+                    "X": 0,
+                    "Y": 5,
+                    "Z": 0
+                }
+            }
+        ],
+        "Entitys": [
+            {
+                "Name": "一只可爱的Zombie",
+                "Id": "Zombie ",
+                "Nbt": {},
+                "Location": {
+                    "X": 0,
+                    "Y": 8,
+                    "Z": 0
+                }
+            }
+        ]
+    },
+    "Footers": {}
+}
