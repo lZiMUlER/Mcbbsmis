@@ -11,75 +11,15 @@ const {LiveTCP} = require ('bilibili-live-ws');
 //Linux Window 路徑矯正
 const LWPC = FilePath => FilePath ['replace'] (new RegExp ('/', 'img'), Path ['sep'] === '\\'? '\\\\': '/');
 
+const Gm = require (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Srcs/GoHome.JS')));
+const Lottery = require (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Srcs/Lottery.JS')));
 const Bg = require (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Srcs/BuildingGenerator.JS')));
+const SRC = require (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Srcs/StringRandomColor.JS')));
 
 //基對象定義
 const ReadConfig = FileName => JSON ['parse'] (new String (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/'), `${FileName}.JSON`))));
 const ServiceConfig = Ini ['parse'] (new String (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/ServiceConfig.INI')))));
 const Interactives = JSON ['parse'] (new String (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/Interactives.JSON')))));
-
-class Gm {
-	Coordinate = null
-
-	setHome (Coordinate) {
-		this ['Coordinate'] = new String (`Tp @s ${Coordinate [0]} ${Coordinate [1]} ${Coordinate [2]}`);
-	}
-	
-	getHome () {
-		return this ['Coordinate'];
-	}
-};
-
-class Lottery {
-	constructor (Data) {
-    return new Promise (LotteryInfo => {
-        let Resource = new Object;
-        let RRandom = Math ['floor'] (Math ['random'] () * Data ['Resource'] ['length']);
-        Resource ['Title'] = Data ['Resource'] [RRandom] ['Title'];
-        Resource ['Data'] = new Object;
-        let GRandom = Math ['floor'] (Math ['random'] () * Data ['Resource'] [RRandom] ['Group'] ['length']);
-        Resource ['Data'] ['Id'] = Data ['Resource'] [RRandom] ['Group'] [GRandom] ['Id'];
-        Resource ['Data'] ['Title'] = Data ['Resource'] [RRandom] ['Group'] [GRandom] ['Title'];
-        Resource ['Data'] ['Quantity'] = Data ['Resource'] [RRandom] ['Group'] [GRandom] ['Quantity'];
-        LotteryInfo (Resource);
-    })
-	}
-};
-
-class SRC {
-	static Catch = new Array;
-	static Result = null;
-
-	constructor (Mode = false, Content = 'String Random Colors') {
-		if (Object ['prototype'] ['toString'] ['call'] (Mode) === '[object Boolean]')
-		if (Mode)
-		SRC ['Result'] = SRC ['SSP'] (Content);
-		else 
-		SRC ['Result'] = SRC ['GRC'] (Content);
-	}
-
-	static GRC (Content) {
-		return `§${new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g') [Math ['floor'] (Math ['random'] () * 17)]}${Content}`
-	}
-
-	static SSP (Content) {
-		SRC ['Catch'] ['splice'] (0, SRC ['Catch'] ['length']);
-		Content ['split'] ('') ['forEach'] (Value => {
-			if (!new RegExp ('\\s', 'img') ['test'] (Value)) 
-			SRC ['Catch'] ['push'] (SRC ['GRC'] (Value));
-			else
-			SRC ['Catch'] ['push'] (Value);
-		})
-		return SRC ['Catch'] ['join'] ('')
-	}
-	
-	getContent (CallBack) {
-		if (CallBack && Object ['prototype'] ['toString'] ['call'] (CallBack) === '[object Function]')
-		CallBack (SRC ['Result']);
-		else
-		return SRC ['Result']
-	}
-};
 
 const GoHome = new Gm;
 const Coordinate = new Array;
@@ -427,7 +367,7 @@ function Monitor (RoomID) {
     SendMTM ('§l§o§9ConnectStatus §l§o§a連接成功 正在監聽直播間彈幕');
 };
 
-console ['log'] (`-
+console ['info'] (`-
 
 正在檢測 [ Mcbbsmis ]最新版本，請稍等...
 
@@ -444,7 +384,7 @@ Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Respo
 	Response ['on'] ('data', Data => Resource ['push'] (Data));
 	Response ['on'] ('end', Data => {
 		if (JSON ['parse'] (Resource ['join'] ('')) ['Vn'] > LocalVersion)
-		console ['log'] (`-
+		console ['info'] (`-
 
 [ Mcbbsmis ] 新版本已發佈，請更新
 
@@ -457,7 +397,7 @@ Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Respo
 -
 
 
-`); else console ['log'] (`-
+`); else console ['info'] (`-
 
 [ Mcbbsmis ] 當前已是最新版本
 
@@ -468,9 +408,11 @@ Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Respo
 
 `);
 
+//正則匹配 主機 & 端口 是否合法
+if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/g ['test'] (Configuration ['WebSocket'] ['Host']) && new RegExp ('^[2-7][0-9][0-9][0-9]$|8000') ['test'] (Configuration ['WebSocket'] ['Port'])) {
 
-//開啟WebSocket服務器
-new Ws ['Server'] (new Object ({
+	//開啟WebSocket服務器
+	new Ws ['Server'] (new Object ({
     "host": Configuration ['WebSocket'] ['Host'],
     "port": Configuration ['WebSocket'] ['Port']
 })) ['on'] ('connection', Socket => {
@@ -763,13 +705,12 @@ new Ws ['Server'] (new Object ({
         } catch (Err) {
             Fs ['writeFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Logs/Errors/'), `${new String (Math ['random'] () * 9329583)}.LOG`), new String (Err))
         }
-    })
-});
+      })
+   });
+  	//輸出顯示服務器主機和端口
+	console ['info'] (`-
 
-//輸出顯示服務器主機和端口
-console ['log'] (`-
-
---===登陸成功===--
+--===服務器環境搭建成功===--
 
 這個 [ Mcbbsmis ] 服務運行在
 
@@ -777,13 +718,29 @@ console ['log'] (`-
     Configuration ['WebSocket'] ['Host']
 }
 端口: ${
-    JSON ['parse'] (Configuration ['WebSocket'] ['Port'])
+    Configuration ['WebSocket'] ['Port']
 }
 
 請複製這個連接命令:
-/Connect ws://${Configuration ['WebSocket'] ['Host']}:${JSON ['parse'] (Configuration ['WebSocket'] ['Port'])}
+/Connect ws://${Configuration ['WebSocket'] ['Host']}:${Configuration ['WebSocket'] ['Port']}
 
 -------Mcbbsmis Service-------
--`)
-	})
+-`);
+ } else 
+ console ['error'] (`
+--===服務器環境搭建失敗===--
+
+請檢查 [主機 & 端口] 是否合法
+
+主機範圍 [0.0.0.0 & 255.255.255.255]
+端口範圍 [2000 & 8000]
+
+您輸入的主機值為: ${
+    Configuration ['WebSocket'] ['Host']
+}
+你輸入的端口值為: ${
+    Configuration ['WebSocket'] ['Port']
+}
+`)
+	});
 });
