@@ -409,7 +409,7 @@ Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Respo
 `);
 
 //正則匹配 主機 & 端口 是否合法
-if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/g ['test'] (Configuration ['WebSocket'] ['Host']) && new RegExp ('^[2-7][0-9][0-9][0-9]$|8000') ['test'] (Configuration ['WebSocket'] ['Port'])) {
+if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/g ['test'] (Configuration ['WebSocket'] ['Host']) && new RegExp ('[2-7][0-9][0-9][0-9]$|8000') ['test'] (Configuration ['WebSocket'] ['Port'])) {
 
 	//開啟WebSocket服務器
 	new Ws ['Server'] (new Object ({

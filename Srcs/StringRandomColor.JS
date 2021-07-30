@@ -33,4 +33,4 @@ class SRC {
 	}
 };
 
-module ['exports'] SRC;
+module ['exports'] = SRC;
