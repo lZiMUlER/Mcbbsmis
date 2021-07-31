@@ -18,8 +18,8 @@
 * 18.傳送坐標點: $Plugins: GoHome Get
 * 19.幫助: $Help
 * 20.回來吉祥物 Agent: $Plugins: Agent ComeBack
-* 21.音頻播放器: $Plugins: AudioMedio (Local & Online) (Path & Url) (未來命令)
-* 22.視頻播放器: $Plugins: VideoMedio (Local & Online) (Path & Url) (未來命令)
+* 21.音頻播放器: $Plugins: MusicPlayer Play MusicName
+* 22.視頻播放器: $Plugins: VideoPlayer Play VideoName (未來命令)
 * 23.點歌系統框架: $Plugins: PointSong SongName (未來命令)
 * 24.新增命令 $Node: JavaScript Code
 * 25.新增類 class SRC (全稱 String Random Colors)，配合 [$Node] 命令來使用，使用方法 $Node: SendMTM (new SRC (佈爾值, 字符串) ['getContent'] ())

@@ -74,7 +74,7 @@ function SendMTM (Message) {
             "origin": {
                 "type": "player"
             },
-            "commandLine": `say §l§o§b(§l§o§3Mcbbsmis§l§o§b) ${Message}`,
+            "commandLine": `Tellraw @a {"rawtext": [{"text": "§l§o§b(§l§o§3Mcbbsmis§l§o§b) §f"}, {"text": "${Message}"}]}`,
             "version": 1
         }
     })))
@@ -420,7 +420,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
     WebSocket = Socket;
     if (!MonitorLock) {
     //監聽直播間彈幕消息
-    Monitor (Number (Configuration ['BiliBili'] ['RoomID']));
+    Monitor (JSON ['parse'] (Number (Configuration ['BiliBili'] ['RoomID'])));
     MonitorLock = true
     } else
     SendMTM ('§l§o§9ConnectStatus §l§o§a連接成功 正在監聽直播間彈幕');
