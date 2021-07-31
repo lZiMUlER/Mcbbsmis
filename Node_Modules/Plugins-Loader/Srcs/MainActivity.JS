@@ -4,14 +4,15 @@ class MainActivity {
 		this ['PluginsList'] = new Object;
 		this ['PluginsName'] = new Array;
 		this ['PluginsMain'] = new Object;
-		this ['MTMS'] = null;
 		const Root = Socket ['LWPC'] (Socket ['ModulesList'] ['Path'] ['join'] (Socket ['ModulesList'] ['Path'] ['dirname'] (__dirname), '../../', './Plugins/'));
 		if (Object ['prototype'] ['toString'] ['call'] (Socket) === '[object Object]')
 		Socket ['ModulesList'] ['Fs'] ['exists'] (Root, Status => {
 			if (!Status) 
 			Socket ['ModulesList'] ['Fs'] ['mkdir'] (Root, Status => null);
 			Socket ['ModulesList'] ['Fs'] ['readdir'] (Root, (Status, Results) => {
-				Socket ['SendMTM'] = Value => Socket ['SendMTMS'] (`§l§o§9Plugin §l§o§a${this ['MTMS']} §e => §f${Value}`);
+				Socket ['SendMTM'] = (PluginName, Message) => {
+					if (this ['PluginsName'] ['indexOf'] (PluginName) !== -1 && Message) Socket ['SendMTMS'] (`§l§o§9Plugin §l§o§a${PluginName} §e => §f${Message}`);
+				};
 				if (Status === null && Results ['length'] !== 0)
 				Results ['forEach'] ((Result, Index) => {
 					const Path = Socket ['LWPC'] (Socket ['ModulesList'] ['Path'] ['join'] (Root, Result, 'Manifest.JSON'));
@@ -30,7 +31,6 @@ class MainActivity {
 														if (this ['Repeat'] (this ['PluginsList']) ['indexOf'] (ParseData ['Name']) === -1) {
 															Socket ['Manifest'] = ParseData;
 															Socket ['Input'] = Func => this ['PluginsMain'] [ParseData ['Name']] = Func;
-															this ['MTMS'] = ParseData ['Name'];
 															Socket ['SendCMD'] ('Tellraw @a {"rawtext": [{"text": "--------------"}]}');
 															Socket ['SendMTMS'] (`§l§o§9PluginStatus §l§o§9[§f${Result}§9] §e=> §a載入成功`);
 															Socket ['SendMTMS'] (`§l§o§9PluginInfo §e=> §9[§a${ParseData ['Name'] ['length'] > 15? ParseData ['Name'] ['substring'] (0, 15): ParseData ['Name']}§f@§d${ParseData ['Version'] ['length'] > 9? ParseData ['Version'] ['substring'] (0, 9): ParseData ['Version']}§f#§c${ParseData ['Author'] ['length'] > 10? ParseData ['Author'] ['substring'] (0, 10): ParseData ['Author']}§f#§e${ParseData ['Description'] ['length'] > 12? ParseData ['Description'] ['substring'] (0, 12): ParseData ['Description']}§9]`);
@@ -48,7 +48,7 @@ class MainActivity {
 							})
 						}
 					});
-					if (Index === Results.length - 1)
+					if (Index === Results ['length'] - 1)
 					setTimeout(Event => {
 						if (Object ['prototype'] ['toString'] ['call'] (CallBack) === '[object Function]') 
 						CallBack (this ['PluginsName']);
