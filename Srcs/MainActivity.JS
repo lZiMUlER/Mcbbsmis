@@ -29,22 +29,7 @@ let ListenerStatus = true;
 let WebSocket = null;
 let [MS, ML] = [false, null];
 
-//進一步設置配置信息,如有值? 用有值: 則用默認值
-const Configuration = new Object ({
-    "Minecraft": {
-        "XboxID": ServiceConfig ['Minecraft'] ['XboxID'] || null
-    },
-    "WebSocket": {
-        "Host": ServiceConfig ['WebSocket'] ['Host'] || Os ['networkInterfaces'] () ['wlan0'] [0] ['address'],
-        "Port": ServiceConfig ['WebSocket'] ['Port'] || 9329
-    },
-    "BiliBili": {
-        "RoomID": ServiceConfig ['BiliBili'] ['RoomID'] || 9329583,
-        "Csrf": ServiceConfig ['BiliBili'] ['Csrf'] || null,
-        "User-Agent": ServiceConfig ['BiliBili'] ['User-Agent'] || null,
-        "Cookie": ServiceConfig ['BiliBili'] ['Cookie'] || null
-    }
-});
+const [WebSocketHost, WebSocketPort] = new Array (ServiceConfig ['WebSocket'] ['Host'] || Os ['networkInterfaces'] () ['wlan0'] [0] ['address'], ServiceConfig ['WebSocket'] ['Port'] || 9329)
 
 //向遊戲客戶端發送訂閱事件函數
 function Subscribe (Socket, EventArray) {
@@ -102,8 +87,8 @@ function SendCMD (Command) {
 //獲取隨機禮品
 function GetLottery (Name) {
     new Lottery (ReadConfig (Name)) ['then'] (Resource => {
-        SendMTM (` §l§o§9Lottery §l§o§5恭喜 §l§o§b[§l§o§c${Configuration ['Minecraft'] ['XboxID']}§l§o§b] §l§o§5在 §l§o§6${Resource ['Title']} §l§o§5禮品中獲得 §l§o§6${Resource ['Data'] ['Quantity']} §l§o§5個 §l§o§6${Resource ['Data'] ['Title']}`);
-        SendCMD (`Give ${Configuration ['Minecraft'] ['XboxID']} ${Resource ['Data'] ['Id']} ${Resource ['Data'] ['Quantity']}`)
+        SendMTM (` §l§o§9Lottery §l§o§5恭喜 §l§o§b[§l§o§c${ServiceConfig ['Minecraft'] ['XboxID']}§l§o§b] §l§o§5在 §l§o§6${Resource ['Title']} §l§o§5禮品中獲得 §l§o§6${Resource ['Data'] ['Quantity']} §l§o§5個 §l§o§6${Resource ['Data'] ['Title']}`);
+        SendCMD (`Give ${ServiceConfig ['Minecraft'] ['XboxID']} ${Resource ['Data'] ['Id']} ${Resource ['Data'] ['Quantity']}`)
     });
 }
 
@@ -217,7 +202,7 @@ function GiftConfigs (Event, Value, Values) {
 function Verify (Data) {
     if (Data ['body'] ['eventName'] === 'PlayerMessage')
     if (Data ['body'] ['properties'] ['MessageType'] === 'chat')
-    if (Data ['body'] ['properties'] ['Sender'] === Configuration ['Minecraft'] ['XboxID'])
+    if (Data ['body'] ['properties'] ['Sender'] === ServiceConfig ['Minecraft'] ['XboxID'])
     return true;
     return false
 };
@@ -234,47 +219,47 @@ function VerifyUsers (UserName, Value) {
 //將玩家聊天消息發送至直播間函數
 function SendToBL (Message, Rcs) {
     //消息進行編碼
-    let EncodeMessage = `------${Configuration ['BiliBili'] ['Wkfb']}
+    let EncodeMessage = `------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="bubble"
 
 0
-------${Configuration ['BiliBili'] ['Wkfb']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="msg"
 
 ${Message}
-------${Configuration ['BiliBili'] ['Wkfb']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="color"
 
 16777215
-------${Configuration ['BiliBili'] ['Wkfb']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="mode"
 
 1
-------${Configuration ['BiliBili'] ['Wkfb']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="fontsize"
 
 25
-------${Configuration ['BiliBili'] ['Wkfb']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="rnd"
 
 ${new Date () ['getTime'] ()}
-------${Configuration ['BiliBili'] ['Wkfb']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="roomid"
 
-${Configuration ['BiliBili'] ['RoomID']}
-------${Configuration ['BiliBili'] ['Wkfb']}
+${ServiceConfig ['BiliBili'] ['RoomID']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}
 Content-Disposition: form-data; name="csrf"
 
-${Configuration ['BiliBili'] ['Csrf']}
-------${Configuration ['BiliBili'] ['Wkfb']}--
+${ServiceConfig ['BiliBili'] ['Csrf']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}--
 Content-Disposition: form-data; name="csrf_token"
 
-${Configuration ['BiliBili'] ['Csrf']}
-------${Configuration ['BiliBili'] ['Wkfb']}--
+${ServiceConfig ['BiliBili'] ['Csrf']}
+------${ServiceConfig ['BiliBili'] ['Wkfb']}--
 `;
 
     //設定請求配置
-    let RequestConfiguration = new Object ({
+    let RequestServiceConfig = new Object ({
         "protocol": "http:",
         "host": "api.live.bilibili.com",
         "port": 80,
@@ -283,8 +268,8 @@ ${Configuration ['BiliBili'] ['Csrf']}
         "headers": {
             "Host": "api.live.bilibili.com",
             "content-length": EncodeMessage? EncodeMessage ['length']: 0,
-            "user-agent": Configuration ['BiliBili'] ['User-Agent'],
-            "content-type": `multipart/form-data; boundary=----${Configuration ['BiliBili'] ['Wkfb']}`,
+            "user-agent": ServiceConfig ['BiliBili'] ['User-Agent'],
+            "content-type": `multipart/form-data; boundary=----${ServiceConfig ['BiliBili'] ['Wkfb']}`,
             "accept": "*/*",
             "origin": "https://live.bilibili.com",
             "x-requested-with": "mark.via",
@@ -294,10 +279,10 @@ ${Configuration ['BiliBili'] ['Csrf']}
             "referer": "https://live.bilibili.com/",
             "accept-encoding": "gzip, deflate",
             "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Cookie": Configuration ['BiliBili'] ['Cookie']
+            "Cookie": ServiceConfig ['BiliBili'] ['Cookie']
         }});
     //開始請求直播間
-    let Request = Http ['request'] (RequestConfiguration, Socket => {
+    let Request = Http ['request'] (RequestServiceConfig, Socket => {
     Socket ['on'] ('data', Message => {
         let Status = JSON ['parse'] (Message);
         if (Rcs)
@@ -361,7 +346,7 @@ function Monitor (RoomID) {
     		let RandomEvent = Interactives ['RandomEvents'] [Math ['floor'] (Math ['random'] () * Interactives ['RandomEvents'] ['length'])];
     	let RandomNumber = Math ['floor'] (Math ['random'] () * 30);
     	SendMTM  (` §l§o§9RandomEvents §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b]§l§o§d: §l§o§6因投喂 [§l§o§b${Message ['data'] ['giftName']} §l§o§6* §l§o§a${Message ['data'] ['num']}§l§o§6] 礼物触发事件为 §l§o§c[${RandomEvent ['Tips'] ['replace'] (new RegExp ('Number:Random', 'img'), RandomNumber) ['replace'] (new RegExp ('Number:Gift', 'img'), Message ['data'] ['num'] < 25? Message ['data'] ['num'] * 10: 255)}]`);
-    	SendCMD (RandomEvent ['Command'] ['replace'] ('Player:XboxID', Configuration ['Minecraft'] ['XboxID']) ['replace'] (new RegExp ('Number:Random', 'img'), RandomNumber) ['replace'] (new RegExp ('Number:Gift', 'img'), Message ['data'] ['num'] < 25? Message ['data'] ['num'] * 10: 255));
+    	SendCMD (RandomEvent ['Command'] ['replace'] ('Player:XboxID', ServiceConfig ['Minecraft'] ['XboxID']) ['replace'] (new RegExp ('Number:Random', 'img'), RandomNumber) ['replace'] (new RegExp ('Number:Gift', 'img'), Message ['data'] ['num'] < 25? Message ['data'] ['num'] * 10: 255));
     	};
     });
     SendMTM ('§l§o§9ConnectStatus §l§o§a連接成功 正在監聽直播間彈幕');
@@ -409,18 +394,18 @@ Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Respo
 `);
 
 //正則匹配 主機 & 端口 是否合法
-if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/g ['test'] (Configuration ['WebSocket'] ['Host']) && new RegExp ('[2-7][0-9][0-9][0-9]$|8000') ['test'] (Configuration ['WebSocket'] ['Port'])) {
+if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/g ['test'] (WebSocketHost) && new RegExp ('[2-7][0-9][0-9][0-9]$|8000') ['test'] (WebSocketPort)) {
 
 	//開啟WebSocket服務器
 	new Ws ['Server'] (new Object ({
-    "host": Configuration ['WebSocket'] ['Host'],
-    "port": Configuration ['WebSocket'] ['Port']
+    "host": WebSocketHost,
+    "port": WebSocketPort
 })) ['on'] ('connection', Socket => {
     //設置全局
     WebSocket = Socket;
     if (!MonitorLock) {
     //監聽直播間彈幕消息
-    Monitor (JSON ['parse'] (new Number (Configuration ['BiliBili'] ['RoomID'])));
+    Monitor (JSON ['parse'] (new Number (ServiceConfig ['BiliBili'] ['RoomID'] || 9329583)));
     MonitorLock = true
     } else
     SendMTM ('§l§o§9ConnectStatus §l§o§a連接成功 正在監聽直播間彈幕');
@@ -715,14 +700,14 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
 這個 [ Mcbbsmis ] 服務運行在
 
 主機: ${
-    Configuration ['WebSocket'] ['Host']
+    WebSocketHost
 }
 端口: ${
-    Configuration ['WebSocket'] ['Port']
+    WebSocketPort
 }
 
 請複製這個連接命令:
-/Connect ws://${Configuration ['WebSocket'] ['Host']}:${Configuration ['WebSocket'] ['Port']}
+/Connect ws://${WebSocketHost}:${WebSocketPort}
 
 -------Mcbbsmis Service-------
 -`);
@@ -736,10 +721,10 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
 端口範圍 [2000 & 8000]
 
 您輸入的主機值為: ${
-    Configuration ['WebSocket'] ['Host']
+    WebSocketHost
 }
 你輸入的端口值為: ${
-    Configuration ['WebSocket'] ['Port']
+    WebSocketPort
 }
 `)
 	});

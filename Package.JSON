@@ -13,8 +13,8 @@
             "url": "https://b23.tv/ymEtPO"
         }
     ],
-    "version": "28.27.96",
-    "Vn": 30,
+    "version": "29.26.96",
+    "Vn": 31,
     "license": "MIT",
     "homepage": "https://b23.tv/ymEtPO",
     "main": "./Srcs/MainActivity.JS",
