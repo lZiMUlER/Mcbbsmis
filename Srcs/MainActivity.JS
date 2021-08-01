@@ -29,7 +29,7 @@ let ListenerStatus = true;
 let WebSocket = null;
 let [MS, ML] = [false, null];
 
-const [WebSocketHost, WebSocketPort] = new Array (ServiceConfig ['WebSocket'] ['Host'] || Os ['networkInterfaces'] () ['wlan0'] [0] ['address'], ServiceConfig ['WebSocket'] ['Port'] || 9329)
+const [WebSocketHost, WebSocketPort] = new Array (ServiceConfig ['WebSocket'] ['Host'] || Os ['networkInterfaces'] () ['wlan0'] [0] ['address'], ServiceConfig ['WebSocket'] ['Port'] || 5839)
 
 //向遊戲客戶端發送訂閱事件函數
 function Subscribe (Socket, EventArray) {
