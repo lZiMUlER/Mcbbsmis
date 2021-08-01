@@ -87,7 +87,7 @@ function SendCMD (Command) {
 //獲取隨機禮品
 function GetLottery (Name) {
     new Lottery (ReadConfig (Name)) ['then'] (Resource => {
-        SendMTM (` §l§o§9Lottery §l§o§5恭喜 §l§o§b[§l§o§c${ServiceConfig ['Minecraft'] ['XboxID']}§l§o§b] §l§o§5在 §l§o§6${Resource ['Title']} §l§o§5禮品中獲得 §l§o§6${Resource ['Data'] ['Quantity']} §l§o§5個 §l§o§6${Resource ['Data'] ['Title']}`);
+        SendMTM (`§l§o§9Lottery §l§o§5恭喜 §l§o§b[§l§o§c${ServiceConfig ['Minecraft'] ['XboxID']}§l§o§b] §l§o§5在 §l§o§6${Resource ['Title']} §l§o§5禮品中獲得 §l§o§6${Resource ['Data'] ['Quantity']} §l§o§5個 §l§o§6${Resource ['Data'] ['Title']}`);
         SendCMD (`Give ${ServiceConfig ['Minecraft'] ['XboxID']} ${Resource ['Data'] ['Id']} ${Resource ['Data'] ['Quantity']}`)
     });
 }
@@ -176,7 +176,7 @@ function GiftConfigs (Event, Value, Values) {
 					if (JudgeUsersExist (Values, Interactives ['GiftGroup']))
 					SendMTM ('§l§o§9GiftStatus §l§o§4無法添加 該禮物已經是觸發因素');
 					else {
-						SendMTM (` §l§o§9GiftStatus §l§o§a已添加 §l§o§b[${Values}] §l§o§a為觸發禮物`);
+						SendMTM (`§l§o§9GiftStatus §l§o§a已添加 §l§o§b[${Values}] §l§o§a為觸發禮物`);
 						Add (Values, 'GiftGroup');
 					}
 				break;
@@ -186,7 +186,7 @@ function GiftConfigs (Event, Value, Values) {
 					SendMTM ('§l§o§9GiftStatus §l§o§4無法刪除 該禮物已經不是觸發因素');
 					else {
 						Delete (Values, 'GiftGroup');
-						SendMTM (` §l§o§9GiftStatus §l§o§a已刪除 §l§o§b[${Values}] §l§o§a為觸發禮物`)
+						SendMTM (`§l§o§9GiftStatus §l§o§a已刪除 §l§o§b[${Values}] §l§o§a為觸發禮物`)
 					}
 				break;
 			};
@@ -293,7 +293,7 @@ ${ServiceConfig ['BiliBili'] ['Csrf']}
         else if (Status ['code'] === -500)
         SendMTM ('§l§o§9SendStatus §l§o§4內容過長');
         else
-        SendMTM (` §l§o§9SendStatus §l§o§4${JSON ['stringify'] (Status)}`);
+        SendMTM (`§l§o§9SendStatus §l§o§4${JSON ['stringify'] (Status)}`);
 	Request ['abort'] ();
     })
 }
@@ -312,7 +312,7 @@ function Monitor (RoomID) {
     	if (ListenerStatus === false)
     	return null;
     	
-    	SendMTM (` §l§o§9Welcome §l§o§5熱烈歡迎 §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b] §l§o§5進入了直播間`);
+    	SendMTM (`§l§o§9Welcome §l§o§5熱烈歡迎 §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b] §l§o§5進入了直播間`);
     });
     
     //彈幕監聽
@@ -330,7 +330,7 @@ function Monitor (RoomID) {
         } else
         SendToBL ('对不起，您沒有使用關鍵詞的權限', false);
         if (!JudgeUsersExist (User [1], Interactives ['BarrageBlacklists']))
-        SendMTM (` §l§o§9Barrage §l§o§b[§l§o§c${User [1]}§l§o§b]§l§o§d: §l§o§6${Message ['info'] [1] ['replace'] (new RegExp ('@e', 'img'), '')}`);
+        SendMTM (`§l§o§9Barrage §l§o§b[§l§o§c${User [1]}§l§o§b]§l§o§d: §l§o§6${Message ['info'] [1] ['replace'] (new RegExp ('@e', 'img'), '')}`);
     });
     
     //禮物監聽
@@ -338,14 +338,14 @@ function Monitor (RoomID) {
     	if (ListenerStatus === false)
     	return null;
     	
-    	SendMTM (` §l§o§9Gift §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b]§l§o§d: §l§o§6${Message ['data'] ['action']}了 §l§o§b${Message ['data'] ['giftName']} §l§o§6* §l§o§a${Message ['data'] ['num']}`);
+    	SendMTM (`§l§o§9Gift §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b]§l§o§d: §l§o§6${Message ['data'] ['action']}了 §l§o§b${Message ['data'] ['giftName']} §l§o§6* §l§o§a${Message ['data'] ['num']}`);
    
    
     	if (Interactives ['GiftStatus'] || false)
     	if (VerifyUsers (Message ['data'] ['uname'], 'GiftWhitelists') && GiftName (Message ['data'] ['giftName']) && new Number (Message ['data'] ['num']) >= Interactives ['GiftQuantity']) {
     		let RandomEvent = Interactives ['RandomEvents'] [Math ['floor'] (Math ['random'] () * Interactives ['RandomEvents'] ['length'])];
     	let RandomNumber = Math ['floor'] (Math ['random'] () * 30);
-    	SendMTM  (` §l§o§9RandomEvents §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b]§l§o§d: §l§o§6因投喂 [§l§o§b${Message ['data'] ['giftName']} §l§o§6* §l§o§a${Message ['data'] ['num']}§l§o§6] 礼物触发事件为 §l§o§c[${RandomEvent ['Tips'] ['replace'] (new RegExp ('Number:Random', 'img'), RandomNumber) ['replace'] (new RegExp ('Number:Gift', 'img'), Message ['data'] ['num'] < 25? Message ['data'] ['num'] * 10: 255)}]`);
+    	SendMTM  (`§l§o§9RandomEvents §l§o§b[§l§o§c${Message ['data'] ['uname']}§l§o§b]§l§o§d: §l§o§6因投喂 [§l§o§b${Message ['data'] ['giftName']} §l§o§6* §l§o§a${Message ['data'] ['num']}§l§o§6] 礼物触发事件为 §l§o§c[${RandomEvent ['Tips'] ['replace'] (new RegExp ('Number:Random', 'img'), RandomNumber) ['replace'] (new RegExp ('Number:Gift', 'img'), Message ['data'] ['num'] < 25? Message ['data'] ['num'] * 10: 255)}]`);
     	SendCMD (RandomEvent ['Command'] ['replace'] ('Player:XboxID', ServiceConfig ['Minecraft'] ['XboxID']) ['replace'] (new RegExp ('Number:Random', 'img'), RandomNumber) ['replace'] (new RegExp ('Number:Gift', 'img'), Message ['data'] ['num'] < 25? Message ['data'] ['num'] * 10: 255));
     	};
     });
@@ -454,7 +454,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
                 let ParsePlugin = ParseData ['body'] ['properties'] ['Message'] ['split'] ('Plugins: ');
                 //判斷命令前綴
                 if (ParseHelp [0] === '$')
-                SendMTM (` §l§o§9Helper §l§o§a${Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Help.MD')), 'UTF-8') }`);
+                SendMTM (`§l§o§9Helper §l§o§a${Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Help.MD')), 'UTF-8') }`);
                 if (ParseMessage [0] === '$')
                 //將玩家聊天消息發送至BiliBili直播間
                 SendToBL (ParseMessage [1], true)
@@ -462,13 +462,13 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
                 try {
                 	let Console = {
                 		"Log": Message => {
-                			SendMTM (` §l§o§9NodeJS Console Log: §l§o§a${Message}`);
+                			SendMTM (`§l§o§9NodeJS Console Log: §l§o§a${Message}`);
                 			return true;
                 		}
                 	};
-                	SendMTM (` §l§o§9NodeJS Logger: §l§o§a${eval (ParseNode [1] || new String ('Not Found Return Value'))}`);
+                	SendMTM (`§l§o§9NodeJS Logger: §l§o§a${eval (ParseNode [1] || new String ('Not Found Return Value'))}`);
                 } catch (Err) {
-                	SendMTM (` §l§o§9NodeJS Logger: §l§o§4${Err}`);
+                	SendMTM (`§l§o§9NodeJS Logger: §l§o§4${Err}`);
                 };
                 if (ParseConfig [0] === '$') {
                     let ParseConfigM = ParseConfig [1] ['split'] (' ');
@@ -582,21 +582,21 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
                         	case 'GiftQuantity':
                         		if (new RegExp ('[0-9]', 'img') ['test'] (new Number (ParseConfigM [1]))) {
                         		GiftConfigs ('GiftQuantity', ParseConfigM [1]);
-                        		SendMTM (` §l§o§9GiftStatus §l§o§a已更改禮物觸發數量為 §l§o§c[${ParseConfigM [1]}]`);
+                        		SendMTM (`§l§o§9GiftStatus §l§o§a已更改禮物觸發數量為 §l§o§c[${ParseConfigM [1]}]`);
                         		} else
-                        		SendMTM (` §l§o§9GiftStatus §l§o§4非法字符 請輸入正確的數值`);
+                        		SendMTM (`§l§o§9GiftStatus §l§o§4非法字符 請輸入正確的數值`);
                         	break;
                         	
                         	case 'ListenerStatus':
                         		switch (ParseConfigM [1]) {
                         			case 'True':
                         			 ListenerStatus = true;
-                        			 SendMTM (` §l§o§9ListenerStatus §l§o§c已更改彈幕監聽狀態為  §l§o§a[True]`);
+                        			 SendMTM (`§l§o§9ListenerStatus §l§o§c已更改彈幕監聽狀態為  §l§o§a[True]`);
                         			 break;
 
                         			case 'False':
                         			 ListenerStatus = false;
-                        			 SendMTM (` §l§o§9ListenerStatus §l§o§c已更改彈幕監聽狀態為 §l§o§4[False]`);
+                        			 SendMTM (`§l§o§9ListenerStatus §l§o§c已更改彈幕監聽狀態為 §l§o§4[False]`);
                         			 break;
 
                            default:
