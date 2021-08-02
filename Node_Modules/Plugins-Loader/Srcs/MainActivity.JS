@@ -1,5 +1,8 @@
 class MainActivity {
 	constructor (Socket, CallBack) {
+		if (!Socket ['PluginsStatus'])
+		return null;
+
 		this ['Socket'] = Socket;
 		this ['PluginsList'] = new Object;
 		this ['PluginsName'] = new Array;
