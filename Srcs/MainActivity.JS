@@ -435,7 +435,13 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
     	"Interactives": Interactives,
     	"LiveTcp": LiveTCP,
     	"SRC": SRC,
-    	"PluginsStatus": JSON ['parse'] (ServiceConfig ['Other'] ['PluginsStatus']) || false
+    	"PluginsStatus": ServiceConfig ['Other'] ['PluginsStatus']? (function (Status) {
+    		try {
+    			return JSON ['parse'] (Status)
+    		} catch (Err) {
+    			return false;
+    		}
+    	} (ServiceConfig ['Other'] ['PluginsStatus'])): false
     }, Result => {
     	[MS, ML] = [true, `§d[§a${Result ['join'] ('§f, §a')}§d]`];
     });
