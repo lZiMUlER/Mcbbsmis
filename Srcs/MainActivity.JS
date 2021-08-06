@@ -4,7 +4,7 @@
 const Import = require ('modules-import');
 
 //基模塊
-const Ml = new Import (new Array ('fs', 'os', 'ws', 'ini', 'http', 'https', 'path', 'plugins-loader'));
+const Ml = new Import (new Array ('fs', 'ws', 'ini', 'http', 'https', 'path', 'plugins-loader'));
 
 const {LiveTCP} = require ('bilibili-live-ws');
 
@@ -29,7 +29,7 @@ let ListenerStatus = true;
 let WebSocket = null;
 let [MS, ML] = [false, null];
 
-const [WebSocketHost, WebSocketPort] = new Array (ServiceConfig ['WebSocket'] ['Host'] || Os ['networkInterfaces'] () ['wlan0'] [0] ['address'], ServiceConfig ['WebSocket'] ['Port'] || 5839)
+const [WebSocketHost, WebSocketPort] = new Array (ServiceConfig ['WebSocket'] ['Host'] || '127.0.0.1', ServiceConfig ['WebSocket'] ['Port'] || 5839)
 
 //向遊戲客戶端發送訂閱事件函數
 function Subscribe (Socket, EventArray) {

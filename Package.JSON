@@ -13,8 +13,8 @@
             "url": "https://b23.tv/ymEtPO"
         }
     ],
-    "version": "29.26.99",
-    "Vn": 33,
+    "version": "29.27.0",
+    "Vn": 34,
     "license": "MIT",
     "homepage": "https://b23.tv/ymEtPO",
     "main": "./Srcs/MainActivity.JS",
@@ -38,20 +38,17 @@
     "dependencies": {
         "bilibili-live-ws": "^5.1.1",
         "ini": "^2.0.0",
-        "lzimul-import": "^1.0.0",
         "ws": "^7.5.3"
     },
     "devDependencies": {
         "bilibili-live-ws": "^5.1.1",
         "ini": "^2.0.0",
-        "lzimul-import": "^1.0.0",
         "ws": "^7.5.3"
     },
     "bundledDependencies": {
     	"bilibili-live-ws": "^5.1.1",
         "ws": "^7.5.3",
-        "ini": "^2.0.0",
-        "lzimul-import": "^1.0.0"
+        "ini": "^2.0.0"
     },
     "repository": {
         "type": "git",
