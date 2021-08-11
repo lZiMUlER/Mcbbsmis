@@ -4,7 +4,7 @@ class MainActivity {
 		return null;
 
 		this ['Socket'] = Socket;
-		this ['PluginsList'] = new Object;
+		this ['PluginsCore'] = new Object;
 		this ['PluginsName'] = new Array;
 		this ['PluginsMain'] = new Object;
 		const Root = Socket ['LWPC'] (Socket ['ModulesList'] ['Path'] ['join'] (Socket ['ModulesList'] ['Path'] ['dirname'] (__dirname), '../../', './Plugins/'));
@@ -31,15 +31,14 @@ class MainActivity {
 											try {
 												Socket ['ModulesList'] ['Fs'] ['readFile'] (Path, 'UTF-8', (Status, Data) => {
 													if (Status === null) {
-														if (this ['Repeat'] (this ['PluginsList']) ['indexOf'] (ParseData ['Name']) === -1) {
-															Socket ['Manifest'] = ParseData;
+														if (this ['Repeat'] (this ['PluginsCore']) ['indexOf'] (ParseData ['Name']) === -1) {
 															Socket ['Input'] = Func => this ['PluginsMain'] [ParseData ['Name']] = Func;
 															Socket ['SendCMD'] ('Tellraw @a {"rawtext": [{"text": "--------------"}]}');
 															Socket ['SendMTMS'] (`§l§o§9PluginStatus §l§o§9[§f${Result}§9] §e=> §a載入成功`);
 															Socket ['SendMTMS'] (`§l§o§9PluginInfo §e=> §9[§a${ParseData ['Name'] ['length'] > 15? ParseData ['Name'] ['substring'] (0, 15): ParseData ['Name']}§f@§d${ParseData ['Version'] ['length'] > 9? ParseData ['Version'] ['substring'] (0, 9): ParseData ['Version']}§f#§c${ParseData ['Author'] ['length'] > 10? ParseData ['Author'] ['substring'] (0, 10): ParseData ['Author']}§f#§e${ParseData ['Description'] ['length'] > 12? ParseData ['Description'] ['substring'] (0, 12): ParseData ['Description']}§9]`);
 															this ['PluginsName'] ['push'] (ParseData ['Name']);
-															this ['PluginsList'] [ParseData ['Name']] = new (eval (`(${Data})`)) (Socket);
-															this ['PluginsList'] [ParseData ['Name']] ['Manifest'] = this ['ParseData'];
+															this ['PluginsCore'] [ParseData ['Name']] = new (eval (`(${Data})`)) (Socket);
+															this ['PluginsCore'] [ParseData ['Name']] ['Manifest'] = this ['ParseData'];
 														} else
 														Socket ['SendMTMS'] (`§l§o§9PluginStatus §l§o§9[§f${Result}§9] §e=> §4載入失敗 重複包名`);
 														}
