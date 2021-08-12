@@ -202,9 +202,15 @@ function GiftConfigs (Event, Value, Values) {
 function Verify (Data) {
     if (Data ['body'] ['eventName'] === 'PlayerMessage')
     if (Data ['body'] ['properties'] ['MessageType'] === 'chat')
-    if (Data ['body'] ['properties'] ['Sender'] === ServiceConfig ['Minecraft'] ['XboxID'])
-    return true;
-    return false
+    if (Object ['prototype'] ['toString'] ['call'] (ServiceConfig ['Minecraft'] ['XboxID']) === '[object String]') {
+     if (Data ['body'] ['properties'] ['Sender'] === ServiceConfig ['Minecraft'] ['XboxID'])
+     return true;
+     return false;
+    } else if (Object ['prototype'] ['toString'] ['call'] (ServiceConfig ['Minecraft'] ['XboxID']) === '[object Array]') {
+     if (ServiceConfig ['Minecraft'] ['XboxID'] ['indexOf'] (Data ['body'] ['properties'] ['Sender']) !== -1)
+     return true;
+     return false;
+    }
 };
 
 //判斷用戶是否有的權限
