@@ -354,7 +354,7 @@ function Monitor (RoomID) {
 
 console ['info'] (`-
 
-正在檢測 [ Mcbbsmis ]最新版本，請稍等...
+正在檢測 [ Mcbbsmis ] 最新版本，請稍等...
 
 -------Mcbbsmis Service-------
 
@@ -375,7 +375,11 @@ Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Respo
 
 請進入以下命令 即可更新
 
-[ cd Mcbbsmis && npm run Update ]
+Linux操作系統:
+[ cd Mcbbsmis && npm run LinuxUpdate ]
+
+Window操作系統:
+[ cd Mcbbsmis && npm run WindowUpdate ]
 
 -------Mcbbsmis Service-------
 
@@ -684,9 +688,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
                        	break;
                         	
                         default:
-                         Pls ['Submit'] ({
-                         	"Value": ParsePlugin [1] ['split'] (' ')
-                         }, CallBack => {});
+                         Pls ['Submit'] (ParsePlugin [1] ['split'] (' '));
                 	}
                }
             } else if (ParseData ['body'] ['eventName'] === 'PlayerTransform') {

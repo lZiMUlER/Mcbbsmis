@@ -85,12 +85,11 @@ class MainActivity {
 	}
 	
 	Submit (Data) {
-		if (this ['PluginsName'] ['indexOf'] (Data ['Value'] [0]) === -1) {
+		if (this ['PluginsName'] ['indexOf'] (Data [0]) === -1) {
 			this ['Socket'] ['SendMTMS'] ('§l§o§9PluginStatus §l§o§4該擴展插件不存在');
 		} else {
-			this ['MTMS'] = Data ['Value'] [0];
-			if (Object ['prototype'] ['toString'] ['call'] (this ['PluginsMain'] [Data ['Value'] [0]]) === '[object Function]')
-			this ['PluginsMain'] [Data ['Value'] [0]] (Data);
+			if (Object ['prototype'] ['toString'] ['call'] (this ['PluginsMain'] [Data [0]]) === '[object Function]')
+			this ['PluginsMain'] [Data [0]] (Data);
 		}
 	}
 }
