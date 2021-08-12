@@ -441,7 +441,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
     	"SRC": SRC,
     	"PluginsStatus": ServiceConfig ['Other'] ['PluginsStatus']? (function (Status) {
     		try {
-    			return JSON ['parse'] (Status)
+    			return JSON ['parse'] (Status ['toLowerCase'] ());
     		} catch (Err) {
     			return false;
     		}
