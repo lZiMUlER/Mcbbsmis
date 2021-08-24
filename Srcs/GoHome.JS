@@ -1,5 +1,5 @@
 class Gm {
-	Coordinate = null
+	Coordinate = null;
 
 	setHome (Coordinate) {
 		this ['Coordinate'] = new String (`Tp @s ${Coordinate [0]} ${Coordinate [1]} ${Coordinate [2]}`);

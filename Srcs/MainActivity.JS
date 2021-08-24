@@ -4,7 +4,7 @@
 const Import = require ('modules-import');
 
 //基模塊
-const Ml = new Import (new Array ('fs', 'ws', 'ini', 'http', 'https', 'path', 'plugins-loader'));
+const Ml = new Import (['fs', 'ws', 'ini', 'http', 'https', 'path', 'plugins-loader']);
 
 const {LiveTCP} = require ('bilibili-live-ws');
 
@@ -17,23 +17,23 @@ const Bg = require (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Srcs/Bui
 const SRC = require (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Srcs/StringRandomColor.JS')));
 
 //基對象定義
-const ReadConfig = FileName => JSON ['parse'] (new String (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/'), `${FileName}.JSON`))));
-const ServiceConfig = Ini ['parse'] (new String (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/ServiceConfig.INI')))));
-const Interactives = JSON ['parse'] (new String (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/Interactives.JSON')))));
+const ReadConfig = FileName => JSON ['parse'] (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/'), `${FileName}.JSON`), 'UTF-8'));
+const ServiceConfig = Ini ['parse'] (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/ServiceConfig.INI')), 'UTF-8'));
+const Interactives = JSON ['parse'] (Fs ['readFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Configs/Interactives.JSON')), 'UTF-8'));
 
 const GoHome = new Gm;
-const Coordinate = new Array;
+const Coordinate = [];
 let AgentStatus = false;
 let MonitorLock = false;
 let ListenerStatus = true;
 let WebSocket = null;
 let [MS, ML] = [false, null];
 
-const [WebSocketHost, WebSocketPort] = new Array (ServiceConfig ['WebSocket'] ['Host'] || '127.0.0.1', ServiceConfig ['WebSocket'] ['Port'] || 5839)
+const [WebSocketHost, WebSocketPort] = [ServiceConfig ['WebSocket'] ['Host'] || '127.0.0.1', ServiceConfig ['WebSocket'] ['Port'] || 5839];
 
 //向遊戲客戶端發送訂閱事件函數
 function Subscribe (Socket, EventArray) {
-    EventArray ['forEach'] (Event => Socket ['send'] (JSON ['stringify'] (new Object ({
+    EventArray ['forEach'] (Event => Socket ['send'] (JSON ['stringify'] ({
         "header": {
             "messagePurpose": "subscribe",
             "messageType": "commandRequest",
@@ -43,12 +43,12 @@ function Subscribe (Socket, EventArray) {
         "body": {
             "eventName": Event
         }
-    }))))
+    })))
 };
 
 //發送消息至遊戲客戶端聊天欄
 function SendMTM (Message) {
-    WebSocket ['send'] (JSON ['stringify'] (new Object ({
+    WebSocket ['send'] (JSON ['stringify'] ({
         "header":{
             "messagePurpose": "commandRequest",
             "messageType": "commandRequest",
@@ -62,12 +62,12 @@ function SendMTM (Message) {
             "commandLine": `Tellraw @a {"rawtext": [{"text": "§l§o§b(§l§o§3Mcbbsmis§l§o§b) §f"}, {"text": "${Message}"}]}`,
             "version": 1
         }
-    })))
+    }))
 };
 
 //發送命令至遊戲客戶端
 function SendCMD (Command) {
-    WebSocket ['send'] (JSON ['stringify'] (new Object ({
+    WebSocket ['send'] (JSON ['stringify'] ({
         "header":{
             "messagePurpose": "commandRequest",
             "messageType": "commandRequest",
@@ -78,10 +78,10 @@ function SendCMD (Command) {
             "origin": {
                 "type": "player"
             },
-            "commandLine": new String ('/') ['concat'] (new String (Command) ['replace'] (new RegExp ('^/', 'im'), '')),
+            "commandLine": '/' ['concat'] (Command ['replace'] (new RegExp ('^/', 'im'), '')),
             "version": 1
         }
-    })))
+    }))
 };
 
 //獲取隨機禮品
@@ -265,7 +265,7 @@ ${ServiceConfig ['BiliBili'] ['Csrf']}
 `;
 
     //設定請求配置
-    let RequestServiceConfig = new Object ({
+    let RequestServiceConfig = {
         "protocol": "http:",
         "host": "api.live.bilibili.com",
         "port": 80,
@@ -286,7 +286,7 @@ ${ServiceConfig ['BiliBili'] ['Csrf']}
             "accept-encoding": "gzip, deflate",
             "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
             "Cookie": ServiceConfig ['BiliBili'] ['Cookie']
-        }});
+        }};
     //開始請求直播間
     let Request = Http ['request'] (RequestServiceConfig, Socket => {
     Socket ['on'] ('data', Message => {
@@ -371,7 +371,7 @@ console ['info'] (`-
 
 Https ['get'] ('https://cdn.jsdelivr.net/gh/lZiMUl/Mcbbsmis/Package.JSON', Response => {
 	let LocalVersion = JSON ['parse'] (Fs ['readFileSync'] (LWPC (`${Path ['join'] (Path ['resolve'] (), 'Mcbbsmis/Package')}.JSON`))) ['Vn'];
-	let Resource = new Array;
+	let Resource = [];
 	Response ['on'] ('data', Data => Resource ['push'] (Data));
 	Response ['on'] ('end', Data => {
 		if (JSON ['parse'] (Resource ['join'] ('')) ['Vn'] > LocalVersion)
@@ -420,7 +420,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
     } else
     SendMTM ('§l§o§9ConnectStatus §l§o§a連接成功 正在監聽直播間彈幕');
     //向遊戲客戶端發送請求訂閱事件
-    Subscribe (Socket, new Array ('PlayerMessage', 'PlayerTransform'));
+    Subscribe (Socket, ['PlayerMessage', 'PlayerTransform']);
     const Pls = new Pl ({
     	"ModulesList": Ml,
     	"Core": Socket,
@@ -459,7 +459,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
     //監聽玩家聊天欄消息數據並返回消息進行語句判斷
     Socket ['on'] ('message', Data => {
         try {
-            let ParseData = JSON ['parse'] (new String (Data));
+            let ParseData = JSON ['parse'] (Data);
             if (Verify (ParseData)) {
                 if (ParseData ['body'] ['properties'] ['Message'] ['length'] === 1)
                 return null;
@@ -483,7 +483,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
                 			return true;
                 		}
                 	};
-                	SendMTM (`§l§o§9NodeJS Logger: §l§o§a${eval (ParseNode [1] || new String ('Not Found Return Value'))}`);
+                	SendMTM (`§l§o§9NodeJS Logger: §l§o§a${eval (ParseNode [1] || 'Not Found Return Value')}`);
                 } catch (Err) {
                 	SendMTM (`§l§o§9NodeJS Logger: §l§o§4${Err}`);
                 };
@@ -703,7 +703,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
             Coordinate [2] = parseInt (ParseData ['body'] ['properties'] ['PosZ']) || 0;
             };
         } catch (Err) {
-            Fs ['writeFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Logs/Errors/'), `${new String (Math ['random'] () * 9329583)}.LOG`), new String (Err))
+            Fs ['writeFileSync'] (Path ['join'] (Path ['resolve'] (), LWPC ('Mcbbsmis/Logs/Errors/'), `${new String (Math ['random'] () * 9329583)}.LOG`), Err)
         }
       })
    });
