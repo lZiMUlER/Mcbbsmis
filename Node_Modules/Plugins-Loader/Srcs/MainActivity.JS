@@ -14,7 +14,7 @@ class MainActivity {
 			Socket ['ModulesList'] ['Fs'] ['mkdir'] (Root, Status => null);
 			Socket ['ModulesList'] ['Fs'] ['readdir'] (Root, (Status, Results) => {
 				Socket ['SendMTM'] = (PluginName, Message) => {
-					if (this ['PluginsName'] ['indexOf'] (PluginName) !== -1 && Message) Socket ['SendMTMS'] (`§l§o§9Plugin §l§o§a${PluginName} §e => §f${Message}`);
+					if (this ['PluginsName'] ['indexOf'] (PluginName) !== -1 && Message) Socket ['SendMTMS'] (`§l§o§9Plugin §l§o§a${PluginName} §e=> §f${Message}`);
 				};
 				if (Status === null && Results ['length'] !== 0)
 				Results ['forEach'] ((Result, Index) => {
