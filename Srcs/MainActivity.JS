@@ -26,7 +26,7 @@ const Coordinate = [];
 let AgentStatus = false;
 let MonitorLock = false;
 let ListenerStatus = true;
-let WebSocket = null;
+let [Live, WebSocket] = [null, null];
 let [MS, ML] = [false, null];
 
 const [WebSocketHost, WebSocketPort] = [ServiceConfig ['WebSocket'] ['Host'] || '127.0.0.1', ServiceConfig ['WebSocket'] ['Port'] || 5839];
@@ -312,7 +312,7 @@ ${ServiceConfig ['BiliBili'] ['Csrf']}
 
 //監聽直播間彈幕消息函數
 function Monitor (RoomID) {
-    const Live = new LiveTCP (RoomID);
+    Live = new LiveTCP (RoomID);
     //觀眾進入監聽
     Live ['on'] ('WELCOME', Message => {
     	if (ListenerStatus === false)
