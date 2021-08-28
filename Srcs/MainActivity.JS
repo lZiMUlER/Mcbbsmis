@@ -443,7 +443,7 @@ if (/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){
     	"ReadConfig": ReadConfig,
     	"ServiceConfig": ServiceConfig,
     	"Interactives": Interactives,
-    	"LiveTcp": LiveTCP,
+    	"Live": Live,
     	"SRC": SRC,
     	"PluginsStatus": ServiceConfig ['Other'] ['PluginsStatus']? (function (Status) {
     		try {
